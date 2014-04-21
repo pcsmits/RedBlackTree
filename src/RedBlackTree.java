@@ -2,31 +2,24 @@
 public class RedBlackTree 
 {
 	private RedBlackNode root;
+	private RedBlackNode node;
 	private RedBlackNode min;
 	private RedBlackNode max;
-	private RedBlackNode nil;
 	
-	public RedBlackTree(RedBlackNode nil)
+	public RedBlackTree(RedBlackNode node)
 	{
-		this.nil = nil;
-		this.root = nil;
-		this.min = nil;
-		this.max = nil;
+		this.node = node;
+		this.root = node;
+		this.min = node;
+		this.max = node;
 
 	}
 	
-	/*public RedBlackTree(RedBlackNode root)
-	{
-		this.root = root;
-		this.min = root;
-		this.max = root;
-	}*/
-	
 	public void insert(RedBlackNode z)
 	{
-		RedBlackNode y = nil;
+		RedBlackNode y = node;
 		RedBlackNode x = root;
-		while(x!=nil)
+		while(x!=node)
 		{
 			y = x;
 			if(z.getKey() < x.getKey())
@@ -41,7 +34,7 @@ public class RedBlackTree
 		
 		z.setParent(y);
 		
-		if(y == nil)
+		if(y == node)
 		{
 			root = z;
 		}
@@ -54,15 +47,15 @@ public class RedBlackTree
 			y.setRight(z);
 		}
 		
-		z.setLeft(nil);
-		z.setRight(nil);
+		z.setLeft(node);
+		z.setRight(node);
 		z.setColor(Color.RED);
 		
 		//fixing succ
-		if (z.getParent() != nil)
+		if (z.getParent() != node)
 		{
 			RedBlackNode t = z;
-			while (t != t.getParent().getRight() && t.getParent() != nil) 
+			while (t != t.getParent().getRight() && t.getParent() != node) 
 			{
 				t = t.getParent();
 			}
@@ -70,10 +63,10 @@ public class RedBlackTree
 		}
 		
 		//fixing pred
-		if (z.getParent() != nil)
+		if (z.getParent() != node)
 		{
 			RedBlackNode t = z;
-			while (t != t.getParent().getLeft() && t.getParent() != nil) 
+			while (t != t.getParent().getLeft() && t.getParent() != node) 
 			{
 				t = t.getParent();
 			}
@@ -92,7 +85,7 @@ public class RedBlackTree
 	public RedBlackNode findMin()
 	{
 		RedBlackNode x = root;
-		while(x.getLeft() != nil)
+		while(x.getLeft() != node)
 		{
 			x = x.getLeft();
 		}
@@ -102,7 +95,7 @@ public class RedBlackTree
 	public RedBlackNode findMax()
 	{
 		RedBlackNode x = root;
-		while(x.getRight() != nil)
+		while(x.getRight() != node)
 		{
 			x = x.getRight();
 		}
@@ -172,12 +165,12 @@ public class RedBlackTree
 	{
 		RedBlackNode y = x.getRight();
 		x.setRight(y.getLeft());
-		if(y.getLeft() != nil)
+		if(y.getLeft() != node)
 		{
 			y.getLeft().setParent(x);
 		}
 		y.setParent(x.getParent());
-		if(x.getParent() == nil)
+		if(x.getParent() == node)
 		{
 			root = y;
 		}
@@ -199,12 +192,12 @@ public class RedBlackTree
 	{
 		RedBlackNode y = x.getLeft();
 		x.setLeft(y.getRight());
-		if(y.getRight() != nil)
+		if(y.getRight() != node)
 		{
 			y.getRight().setParent(x);
 		}
 		y.setParent(x.getParent());
-		if(x.getParent() == nil)
+		if(x.getParent() == node)
 		{
 			root = y;
 		}
@@ -226,7 +219,7 @@ public class RedBlackTree
 	public RedBlackNode find(int k)
 	{
 		RedBlackNode x = root;
-		while(x!=nil && x.getKey()!=k)
+		while(x!=node && x.getKey()!=k)
 		{
 			if(x.getKey() > k)
 			{
@@ -242,19 +235,13 @@ public class RedBlackTree
 	
 	public void printTree(RedBlackNode node)
 	{
-		if(node == nil)
+		if(node == node)
 		{
 			return;
 		}
 		printTree(node.getLeft());
 		node.printNode();
-		/*System.out.printf("Key: %d\nLeft: %d\nRight: %d\nColor: %s\n\n", node.getKey(), node.getLeft().getKey(),
-				node.getRight().getKey(), node.getColor().name());*/
 		printTree(node.getRight());
-		
-		
-		
-		
 	}
 	
 	
@@ -285,17 +272,17 @@ public class RedBlackTree
 
 	public RedBlackNode successor(RedBlackNode current_node)
 	{
-		if(current_node.getRight() == nil || current_node == nil)
+		if(current_node.getRight() == node || current_node == node)
 		{
-			return nil;
+			return node;
 		}
 		
 		RedBlackNode x = current_node.getRight();
-		if(x.getLeft() == nil)
+		if(x.getLeft() == node)
 		{
 			return x;
 		}
-		while(x.getLeft() != nil)
+		while(x.getLeft() != node)
 		{
 			x = x.getLeft();
 		}
@@ -304,17 +291,17 @@ public class RedBlackTree
 
 	public RedBlackNode predecessor(RedBlackNode current_node)
 	{
-		if(current_node.getLeft() == nil || current_node == nil)
+		if(current_node.getLeft() == node || current_node == node)
 		{
-			return nil;
+			return node;
 		}
 		
 		RedBlackNode x = current_node.getLeft();
-		if(x.getRight() == nil)
+		if(x.getRight() == node)
 		{
 			return x;
 		}
-		while(x.getRight() != nil)
+		while(x.getRight() != node)
 		{
 			x = x.getRight();
 		}
